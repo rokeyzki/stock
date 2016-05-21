@@ -6,7 +6,7 @@ require('es6-promise');
 require('fetch-ie8');
 
 // app
-require("../components/test/app.jsx");
+require("../components/api/app.jsx");
 
 // db
 // require("../model/leanCloud/select.js");
