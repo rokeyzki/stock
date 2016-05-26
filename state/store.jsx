@@ -16,7 +16,7 @@ function storeRoot(state, action){
         city: {
           cityname: action.cityname
         },
-        result: action.data
+        result: action.result
       });
       
     default:

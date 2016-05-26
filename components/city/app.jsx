@@ -59,13 +59,11 @@ var CityComp = React.createClass({
   
   componentWillMount: function(){
     Store.subscribe(() => {
-      console.log(11111111111111);
-      console.log(Store.getState());
-      /*this.setState({
+      this.setState({
         city : Store.getState().city.cityname,
         foo: Store.getState().result.result.data.realtime.weather.info,
         temperature: Store.getState().result.result.data.realtime.weather.temperature
-      });*/
+      });
     });
 	}
 });
