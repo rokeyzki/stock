@@ -13,7 +13,7 @@ function storeRoot(state, action){
   switch (action.type) {
     case 'Change_City':
       return Object.assign({}, state, {
-        api: {
+        city: {
           cityname: action.cityname
         },
         result: action.data
