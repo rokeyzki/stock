@@ -53,7 +53,9 @@ var UserGist = React.createClass({
 
 // jsonp: http://op.juhe.cn/onebox/stock/query?dtype=&stock=igg&key=1e03e0734081578f97c39c41ba36ff0a
 // curl: http://apis.baidu.com/showapi_open_bus/stock_his/sh_stock_his?begin=2015-09-01&end=2015-09-02&code=600004
+
+// weather jsonp: http://op.juhe.cn/onebox/weather/query?cityname=福州&dtype=&key=6bb769e52dd7317d10ca8add62af8cd4
 ReactDOM.render(
-  <UserGist source="http://op.juhe.cn/onebox/stock/query?dtype=&stock=igg&key=1e03e0734081578f97c39c41ba36ff0a" />,
+  <UserGist source="http://op.juhe.cn/onebox/weather/query?cityname=福州&dtype=&key=6bb769e52dd7317d10ca8add62af8cd4" />,
   document.querySelector("#app")
 );

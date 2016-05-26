@@ -6,7 +6,7 @@
 // require('fetch-ie8');
 
 // app
-require("../components/test/redux/app.jsx");
+require("../components/city/app.jsx");
 
 // db
 // require("../model/leanCloud/select.js");

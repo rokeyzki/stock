@@ -13,6 +13,54 @@ import _ from 'lodash';
 
 console.log(store.getState());
 
+// 日期分组 start
+var s = new Date("2015-02-24");
+var e = new Date("2015-03-27");
+
+var l = (e - s) + (24 * 60 * 60 * 1000);
+
+var i = (31 * 24 * 60 * 60 * 1000);
+
+var c = Math.ceil(l/i);
+
+var dateArr = [];
+for(var x=0; x<c; x++){
+  var foo = [];
+  if(x === 0){
+    foo.push(transformDate(s));
+  }else{
+    s.setDate(s.getDate() + 1);
+    foo.push(transformDate(s));
+  }
+  
+  if(x === (c-1)){
+    foo.push(transformDate(e));
+  }else{
+    s.setDate(s.getDate() + 30);
+    foo.push(transformDate(s));
+  }
+  
+  dateArr.push(foo);
+}
+
+console.log(dateArr);
+
+function transformDate(date){
+  var monthText = (date.getMonth() + 1);
+  if(monthText < 10){
+    monthText = '0' + monthText;
+  }
+  
+  var dateText = date.getDate();
+  if(dateText < 10){
+    dateText = '0' + dateText;
+  }
+  
+  return date.getFullYear() + '-' + monthText + '-' + dateText;
+}
+
+// 日期分组 end
+
 var ShowOneStockInfo = React.createClass({
   getInitialState: function() {
     return {
