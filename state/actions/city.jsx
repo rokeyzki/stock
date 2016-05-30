@@ -1,9 +1,8 @@
 var CityActions = {
-  changeCity: function(city, data) {
+  changeCity: function(weather) {
     return {
-      type: 'Change_City',
-      cityname: city,
-      result: data
+      type: 'Update_Data',
+      weather: weather,
     };
   },
   

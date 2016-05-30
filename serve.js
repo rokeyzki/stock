@@ -17,25 +17,6 @@ router.get('/',
   }
 );
 
-router.get('/api',
-  function *(next) {
-    // yield this.render('templates/other', { title: 'Hello', someText: 'Add some todos form KOA' });
-    
-    /*var request = require('request'); // 后端发起http请求
-    
-    request('http://web.juhe.cn:8080/finance/stock/hk?num=00799&key=60bd29533d9517cd6f91c64ccf558d35', function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var stockInfo = JSON.parse(body);
-        if(stockInfo.resultcode == 200){
-          console.log(stockInfo.result);
-        }
-      }
-    });*/
-
-　　this.body = '聚合数据 API请求测试';
-  }
-);
-
 app.use(router.routes());
 
 // app.listen(80);

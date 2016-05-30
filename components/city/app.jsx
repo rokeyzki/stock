@@ -9,14 +9,11 @@ import JSONP from "jsonp";
 var CityComp = React.createClass({
   getInitialState: function() {
     var storeState = Store.getState();
-    var cityName = this.props.setCity ? this.props.setCity : Store.getState().city.cityname;
-    
+
     return {
-      city: cityName,
-      api: storeState.city.url,
-      result: storeState.result,
-      foo: "加载中...",
-      temperature: "N/A"
+      city: this.props.setCity ? this.props.setCity : storeState.weather.result.data.realtime.city_name,
+      api: storeState.api,
+      weather: storeState.weather
     };
   },
   
@@ -24,51 +21,40 @@ var CityComp = React.createClass({
     return (
       <div>
         <input type="text" ref="sign" onBlur={this.changeCity} />
-        <p>{this.state.city} 今天的天气是 {this.state.foo}，温度为：{this.state.temperature}</p>
+        <p>{this.state.city} 今天的天气是 {this.state.weather.result.data.realtime.weather.info}，温度为：{this.state.weather.result.data.realtime.weather.temperature}</p>
       </div>
     );
   },
   
-  componentDidMount: function() {
-    
-    JSONP(this.state.api + this.state.city, function(err, data) {
-      if (err) throw err;
-      console.log(data);
-      if (this.isMounted()) {
-        this.setState({
-          result: data,
-          foo : data.result.data.realtime.weather.info,
-          temperature: data.result.data.realtime.weather.temperature
-        });
-      }
-    }.bind(this));
-    
-  },
-  
   changeCity: function() {
-    var textObject = this.refs.sign;
+    var inputObject = this.refs.sign;
+    var city = inputObject.value? inputObject.value: this.state.city;
     
-    JSONP(this.state.api + textObject.value, function(err, data) {
-      if (err) throw err;
-      console.log(data);
+    JSONP(this.state.api + city, function(err, data) {
+      if (err) throw err; console.log(data);
+      
       if (this.isMounted()) {
-        Store.dispatch(CityActions.changeCity(textObject.value, data));
+        Store.dispatch(CityActions.changeCity(data));
       }
     }.bind(this));
   },
   
-  componentWillMount: function(){
+  componentDidMount: function() {
+
+    this.changeCity();
+    
     Store.subscribe(() => {
       this.setState({
-        city : Store.getState().city.cityname,
-        foo: Store.getState().result.result.data.realtime.weather.info,
-        temperature: Store.getState().result.result.data.realtime.weather.temperature
+        city : Store.getState().weather.result.data.realtime.city_name,
+        weather: Store.getState().weather
       });
     });
-	}
+    
+  },
+  
 });
 
 ReactDOM.render(
-  <CityComp setCity="" />,
+  <CityComp setCity="福州" />,
   document.querySelector("#app")
 );

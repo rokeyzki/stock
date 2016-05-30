@@ -1,22 +1,28 @@
 import { createStore } from 'redux';
 
 var defaultState = {
-  city: {
-    url: "http://op.juhe.cn/onebox/weather/query?key=6bb769e52dd7317d10ca8add62af8cd4&dtype=json&cityname=",
-    cityname: "北京"
-  },
-  result: null
+  api: "http://op.juhe.cn/onebox/weather/query?key=6bb769e52dd7317d10ca8add62af8cd4&dtype=json&cityname=",
+  weather: {
+    result: {
+      data: {
+        realtime: {
+          city_name: "北京",
+          weather: {
+            info: "加载中...",
+            temperature: "N/A"
+          }
+        }
+      }
+    }
+  }
 };
 
 // Reducers
 function storeRoot(state, action){
   switch (action.type) {
-    case 'Change_City':
+    case 'Update_Data':
       return Object.assign({}, state, {
-        city: {
-          cityname: action.cityname
-        },
-        result: action.result
+        weather: action.weather
       });
       
     default:
