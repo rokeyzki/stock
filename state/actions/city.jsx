@@ -1,16 +1,20 @@
 var CityActions = {
-  changeCity: function(weather) {
+  changeData: function(weather) {
     return {
       type: 'Update_Data',
       weather: weather,
     };
   },
   
-  /*ajaxGetData: function(begin, end, code){
-    return {
-      type: 'AJAX_GET_DATA',
+  /*changeCity: function(city){
+    JSONP(Store.getState().api + city, function(err, data) {
+      if (err) throw err; console.log(data);
       
-    }
+      return {
+        type: 'Update_Data',
+        weather: data,
+      }
+    });
   }*/
 }
 

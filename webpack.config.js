@@ -34,6 +34,9 @@ module.exports = {
           'url-loader?hash=sha512&limit=10000&name=img/[hash].[ext]',
           'img?minimize'
         ]
+      },{ 
+        test: /\.json$/, 
+        loader: 'json-loader'
       }
     ],
     postLoaders: [ // 为了兼容IE8

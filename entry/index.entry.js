@@ -6,7 +6,8 @@
 // require('fetch-ie8');
 
 // app
-require("../components/city/app.jsx");
+require("../components/api/app.jsx");
+// require("../components/city/app.jsx");
 
 // db
 // require("../model/leanCloud/select.js");
