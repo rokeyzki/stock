@@ -22,7 +22,7 @@ for (let i = 0; i < 46; i++) {
   });
 }
 
-const BigTable = React.createClass({
+const ExampleA = React.createClass({
   getInitialState: function() {
     return {
       selectedRowKeys: [],  // 这里配置默认勾选列
@@ -64,4 +64,4 @@ const BigTable = React.createClass({
   },
 });
 
-export default BigTable;
+export default ExampleA;
