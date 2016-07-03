@@ -1,6 +1,10 @@
 import React from 'react';
 import { Table } from 'antd';
 
+import { Popconfirm, message } from 'antd';
+
+import ShowModal from '../ShowModal/core.jsx';
+
 const data = [
   { key: 1, name: '胡彦斌1', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
   { key: 2, name: '吴彦祖2', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc', test3: 'ccccc' },
@@ -34,17 +38,36 @@ const ShowTable = React.createClass({
     { title: '测试字段1', dataIndex: 'test1', key: 'test1' },
     { title: '测试字段2', dataIndex: 'test2', key: 'test2' },
     { title: '测试字段3', dataIndex: 'test3', key: 'test3' },
-    { title: '操作1', dataIndex: 'test1', key: 'x', render: (text, record, index) => <a href="javascript:console.log(this);">删除 {text} {record.name} {index}</a>},
+    { title: '操作1', dataIndex: 'test1', key: 'x', render: (text, record, index) => <a href="javascript:console.log(this);">测试 {text} {record.name} {index}</a>},
     { title: '操作2', dataIndex: 'test3', key: 'y', 
       render: function(text, record, index) {
-        var getInfo = function(){
+        var confirm = function() {
+          message.success('点击了确定');
           alert(index);
           console.log(record);
+          
+          /*this.setState({
+            visible: true,
+          });*/
         };
+        
+        function cancel() {
+          message.error('点击了取消');
+        }
+        
         return (
-          <a href="javascript:;" onClick={getInfo}>删除 {text} {record.name} {index}</a>
+          <Popconfirm title="确定要删除这个任务吗？" placement="left" onConfirm={confirm} onCancel={cancel}>
+            <a href="#">删除</a>
+          </Popconfirm>
         );
-      },
+      }
+    },
+    { title: '操作3', dataIndex: '', key: 'z', 
+      render: function(text, record, index) {
+        return (
+          <ShowModal record={record} />
+        );
+      }
     },
   ],
   
