@@ -1,6 +1,8 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
 
+//  import QueueAnim from 'rc-queue-anim';
+
 const ShowModal = React.createClass({
   getInitialState() {
     return { visible: false };

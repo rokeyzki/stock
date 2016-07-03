@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 
 import { Popconfirm, message } from 'antd';
 
@@ -26,14 +26,42 @@ const data = [
   { key: 18, name: '李大嘴18', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
 ];
 
-const ShowTable = React.createClass({
-  alertInfo: function() {
-    alert(123);
+const pagination = {
+  total: data.length,
+  showSizeChanger: true,
+  onShowSizeChange(current, pageSize) {
+    console.log('Current: ', current, '; PageSize: ', pageSize);
   },
-  
+  onChange(current) {
+    console.log('Current: ', current);
+  },
+};
+
+const ShowTable = React.createClass({
   columns: [
-    { title: '姓名', dataIndex: 'name', key: 'name', width: 100},
-    { title: '年龄', dataIndex: 'age', key: 'age' },
+    { title: '姓名', dataIndex: 'name', key: 'name', width: 100,
+      filters: [{
+        text: '姓李的',
+        value: '李',
+      }, {
+        text: '姓胡的',
+        value: '胡',
+      }, {
+        text: '子菜单',
+        value: '子菜单',
+        children: [{
+          text: '姓陈的',
+          value: '陈',
+        }, {
+          text: '姓王的',
+          value: '王',
+        }],
+      }],
+      // 指定确定筛选的条件函数
+      // 这里是名字中第一个字是 value
+      onFilter: (value, record) => record.name.indexOf(value) === 0
+    },
+    { title: '年龄', dataIndex: 'age', key: 'age', sorter: (a, b) => a.age - b.age},
     { title: '住址', dataIndex: 'address', key: 'address' },
     { title: '测试字段1', dataIndex: 'test1', key: 'test1' },
     { title: '测试字段2', dataIndex: 'test2', key: 'test2' },
@@ -71,14 +99,54 @@ const ShowTable = React.createClass({
     },
   ],
   
+  getInitialState() {
+    return {
+      selectedRowKeys: [],  // 这里配置默认勾选列
+      loading: false,
+    };
+  },
+  start() {
+    this.setState({ loading: true });
+    // 模拟 ajax 请求，完成后清空
+    setTimeout(() => {
+      this.setState({
+        selectedRowKeys: [],
+        loading: false,
+      });
+    }, 1000);
+  },
+  onSelectChange(selectedRowKeys) {
+    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    this.setState({ selectedRowKeys });
+  },
+  
   render: function() {
+    const { loading, selectedRowKeys } = this.state;
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+    };
+    const hasSelected = selectedRowKeys.length > 0;
     return (
-      <Table columns={this.columns}
-        expandedRowRender={record => <p>{record.description}</p>}
-        dataSource={data}
-        className="table"
-        size="middle"
-      />
+      <div>
+      
+        <div style={{ marginBottom: 16 }}>
+          <Button type="primary" onClick={this.start}
+            disabled={!hasSelected} loading={loading}
+          >操作</Button>
+          <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 个对象` : ''}</span>
+        </div>
+        
+        <Table columns={this.columns}
+          expandedRowRender={record => <p>{record.description}</p>}
+          dataSource={data}
+          pagination={pagination}
+          className="table"
+          size="middle"
+          rowSelection={rowSelection}
+        />
+        
+      </div>
     );
   }
     
