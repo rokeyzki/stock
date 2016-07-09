@@ -6,7 +6,7 @@
 // require('fetch-ie8');
 
 // app
-require("../components/eip/App.jsx");
+require("../components/eip/AppRouter.jsx");
 // require("../components/api/app.jsx");
 // require("../components/city/app.jsx");
 
