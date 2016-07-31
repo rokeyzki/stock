@@ -4,7 +4,7 @@
   "description": "stock package.json",
   "main": "serve.js",
   "dependencies": {
-    "antd": "^1.6.2",
+    "antd": "^1.7.0",
     "autoprefixer-loader": "^3.1.0",
     "avoscloud-sdk": "^0.6.10",
     "babel-loader": "^6.2.1",

@@ -3,42 +3,29 @@ import { Table, Button } from 'antd';
 
 import { Popconfirm, message } from 'antd';
 
+import Store from "../../../state/store.jsx";
+import TableActions from "../../../state/actions/table.jsx";
+
 import ShowModal from '../ShowModal/core.jsx';
 import ShowChart from '../ShowChart/core.jsx';
 
-const data = [
-  { key: 1, name: '胡彦斌1', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
-  { key: 2, name: '吴彦祖2', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbccccccccccccccccccccccccccccccc', test3: 'ccccc' },
-  { key: 3, name: '李大嘴3', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
-  { key: 4, name: '胡彦斌4', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
-  { key: 5, name: '吴彦祖5', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbcccccccccccccccccccccccccccccccccc', test3: 'ccccc' },
-  { key: 6, name: '李大嘴6', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
-  { key: 7, name: '胡彦斌7', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
-  { key: 8, name: '吴彦祖8', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbcccccccccccccccccccccccccccccc', test3: 'ccccc' },
-  { key: 9, name: '李大嘴9', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
-  { key: 10, name: '胡彦斌10', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
-  { key: 11, name: '吴彦祖11', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbccccccccccccccccccccccccccccccccc', test3: 'ccccc' },
-  { key: 12, name: '李大嘴12', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
-  { key: 13, name: '胡彦斌13', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
-  { key: 14, name: '吴彦祖14', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbcccccccccccccccccccccccccccccc', test3: 'ccccc' },
-  { key: 15, name: '李大嘴15', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
-  { key: 16, name: '胡彦斌16', age: 32, address: '西湖区湖底公园1号', description: '我是胡彦斌，今年32岁，住在西湖区湖底公园1号。', test1: 'aaaaa', test2: 'aaaaa', test3: 'aaaaa' },
-  { key: 17, name: '吴彦祖17', age: 42, address: '西湖区湖底公园2号', description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。', test1: 'ccccc', test2: 'bbcccccccccccccccccccccccccc', test3: 'ccccc' },
-  { key: 18, name: '李大嘴18', age: 32, address: '西湖区湖底公园3号', description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。', test1: 'bbb', test2: 'bbb', test3: 'bbb'  },
-];
-
-const pagination = {
-  total: data.length,
-  showSizeChanger: true,
-  onShowSizeChange(current, pageSize) {
-    console.log('Current: ', current, '; PageSize: ', pageSize);
-  },
-  onChange(current) {
-    console.log('Current: ', current);
-  },
-};
-
 const ShowTable = React.createClass({
+  data : Store.getState().data,
+  
+  pagination : {
+    total: Store.getState().data.length,
+    pageSize: 15,
+    pageSizeOptions: ['15', '20', '25', '30'],
+    showSizeChanger: true,
+    showQuickJumper: true,
+    onShowSizeChange(current, pageSize) {
+      console.log('Current: ', current, '; PageSize: ', pageSize);
+    },
+    onChange(current) {
+      console.log('Current: ', current);
+    },
+  },
+  
   columns: [
     { title: '姓名', dataIndex: 'name', key: 'name', width: 100,
       filters: [{
@@ -140,8 +127,8 @@ const ShowTable = React.createClass({
         
         <Table columns={this.columns}
           expandedRowRender={record => <div><p>{record.description}</p><ShowChart/></div>}
-          dataSource={data}
-          pagination={pagination}
+          dataSource={this.data}
+          pagination={this.pagination}
           className="table"
           size="middle"
           rowSelection={rowSelection}
