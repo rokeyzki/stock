@@ -10,20 +10,30 @@ import ShowModal from '../ShowModal/core.jsx';
 import ShowChart from '../ShowChart/core.jsx';
 
 const ShowTable = React.createClass({
-  data : Store.getState().data,
+  // 设置初始状态
+	getInitialState : function(){
+		return {
+		  data : Store.getState().data,
+		  
+		  selectedRowKeys: [],  // 这里配置默认勾选列
+      loading: false,
+		};
+	},
   
-  pagination : {
-    total: Store.getState().data.length,
-    pageSize: 15,
-    pageSizeOptions: ['15', '20', '25', '30'],
-    showSizeChanger: true,
-    showQuickJumper: true,
-    onShowSizeChange(current, pageSize) {
-      console.log('Current: ', current, '; PageSize: ', pageSize);
-    },
-    onChange(current) {
-      console.log('Current: ', current);
-    },
+  pagination : function(){
+    return {
+      total: this.state.data.length,
+      pageSize: 15,
+      pageSizeOptions: ['15', '20', '25', '30'],
+      showSizeChanger: true,
+      showQuickJumper: true,
+      onShowSizeChange(current, pageSize) {
+        console.log('Current: ', current, '; PageSize: ', pageSize);
+      },
+      onChange(current) {
+        console.log('Current: ', current);
+      },
+    };
   },
   
   columns: [
@@ -61,10 +71,9 @@ const ShowTable = React.createClass({
           message.success('点击了确定');
           alert(index);
           console.log(record);
-          
-          /*this.setState({
-            visible: true,
-          });*/
+          // Redux：store.dispatch() 触发 Actions
+		      Store.dispatch(TableActions.addData(index));
+		    
         };
         
         function cancel() {
@@ -87,12 +96,6 @@ const ShowTable = React.createClass({
     },
   ],
   
-  getInitialState() {
-    return {
-      selectedRowKeys: [],  // 这里配置默认勾选列
-      loading: false,
-    };
-  },
   start() {
     this.setState({ loading: true });
     // 模拟 ajax 请求，完成后清空
@@ -103,6 +106,7 @@ const ShowTable = React.createClass({
       });
     }, 1000);
   },
+  
   onSelectChange(selectedRowKeys) {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
@@ -127,8 +131,8 @@ const ShowTable = React.createClass({
         
         <Table columns={this.columns}
           expandedRowRender={record => <div><p>{record.description}</p><ShowChart/></div>}
-          dataSource={this.data}
-          pagination={this.pagination}
+          dataSource={this.state.data}
+          pagination={this.pagination()}
           className="table"
           size="middle"
           rowSelection={rowSelection}
@@ -136,7 +140,20 @@ const ShowTable = React.createClass({
         
       </div>
     );
-  }
+  },
+  
+  componentWillMount : function(){ // 组件初次渲染时被调用，这个方法在整个生命周期中只会被调用一次
+    console.log('1.1: FooComp 组件初次渲染');
+    
+    // Redux：store.subscribe() 监听 Store 的更新，// store.unsubscribe() 停止监听 Store 的更新
+    Store.subscribe(() => {
+      // Redux：store.getState() 获取 Store 中的所有 state
+        var states = Store.getState();
+        console.log(states.data);
+        // 重新渲染
+        this.setState({data : Store.getState().data});
+    });
+	},
     
 });
 
