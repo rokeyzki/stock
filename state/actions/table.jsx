@@ -1,11 +1,4 @@
 var TableActions = {
-  changeData: function(weather) {
-    return {
-      type: 'Update_Data',
-      weather: weather,
-    };
-  },
-  
   addData: function(index) {
     return {
       type: 'Add_Data',
@@ -13,16 +6,19 @@ var TableActions = {
     };
   },
   
-  /*changeCity: function(city){
-    JSONP(Store.getState().api + city, function(err, data) {
-      if (err) throw err; console.log(data);
-      
-      return {
-        type: 'Update_Data',
-        weather: data,
+  delete: function(index, data){
+    var newData = [];
+    for(var i=0; i<data.length; i++){
+      if(data[i].key != index){
+        newData.push(data[i]); 
       }
-    });
-  }*/
+    }
+
+    return {
+      type: 'Reset_Data',
+      data: newData,
+    };
+  }
 }
 
 export default TableActions;

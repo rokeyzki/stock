@@ -69,11 +69,12 @@ const ShowTable = React.createClass({
       render: function(text, record, index) {
         var confirm = function() {
           message.success('点击了确定');
-          alert(index);
+          
+          console.log(index);
           console.log(record);
+          
           // Redux：store.dispatch() 触发 Actions
-		      Store.dispatch(TableActions.addData(index));
-		    
+		      Store.dispatch(TableActions.delete(record.key, Store.getState().data));
         };
         
         function cancel() {
