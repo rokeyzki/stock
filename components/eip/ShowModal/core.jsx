@@ -33,7 +33,7 @@ const ShowModal = React.createClass({
         >
           <p>对话框的内容</p>
           <p>{this.props.record.name}</p>
-          <p>{this.props.record.description}</p>
+          <p>{this.props.record.config}</p>
         </Modal>
       </div>
     );

@@ -14,7 +14,7 @@ const ShowChart = React.createClass({
     var xAxisData = [];
     var data1 = [];
     var data2 = [];
-    for (var i = 0; i < 100; i++) {
+    for (var i = 1; i <= 100; i++) {
       xAxisData.push('类目' + i);
       data1.push(((Math.sin(i / 5) * (i / 5 -10) + i / 6) * 5) * Math.random());
       data2.push(((Math.cos(i / 5) * (i / 5 -10) + i / 6) * 5) * Math.random());
@@ -25,7 +25,7 @@ const ShowChart = React.createClass({
         text: '实时监控柱状图'
       },
       legend: {
-        data: ['监控项一', '监控项二'],
+        data: ['监控项A', '监控项B'],
         align: 'left'
       },
       toolbox: {
@@ -51,14 +51,14 @@ const ShowChart = React.createClass({
       yAxis: {
       },
       series: [{
-        name: '监控项一',
+        name: '监控项A',
         type: 'bar',
         data: data1,
         animationDelay: function (idx) {
           return idx * 10;
         }
       }, {
-        name: '监控项二',
+        name: '监控项B',
         type: 'bar',
         data: data2,
         animationDelay: function (idx) {

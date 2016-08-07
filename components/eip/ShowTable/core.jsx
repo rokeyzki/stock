@@ -42,33 +42,33 @@ const ShowTable = React.createClass({
   },
   
   columns: [
-    { title: '姓名', dataIndex: 'name', key: 'name', width: 100,
+    { title: '应用ID', dataIndex: 'key', key: 'key', sorter: (a, b) => a.key - b.key },
+    { title: '负责人', dataIndex: 'name', key: 'name', width: 100,
       filters: [{
-        text: '姓李的',
+        text: '张某三',
+        value: '张',
+      }, {
+        text: '李某四',
         value: '李',
       }, {
-        text: '姓胡的',
-        value: '胡',
-      }, {
-        text: '子菜单',
+        text: '实习生',
         value: '子菜单',
         children: [{
-          text: '姓陈的',
-          value: '陈',
-        }, {
-          text: '姓王的',
+          text: '王某五',
           value: '王',
+        }, {
+          text: '赵某六',
+          value: '赵',
         }],
       }],
       // 指定确定筛选的条件函数
       // 这里是名字中第一个字是 value
       onFilter: (value, record) => record.name.indexOf(value) === 0
     },
-    { title: '年龄', dataIndex: 'age', key: 'age', sorter: (a, b) => a.age - b.age},
-    { title: '住址', dataIndex: 'address', key: 'address' },
-    { title: '测试字段1', dataIndex: 'test1', key: 'test1' },
-    { title: '测试字段2', dataIndex: 'test2', key: 'test2' },
-    { title: 'CPU消耗', dataIndex: 'test3', key: 'test3',
+    { title: '报错数', dataIndex: 'error', key: 'error', sorter: (a, b) => a.error - b.error },
+    { title: 'ZONE', dataIndex: 'zone', key: 'zone' },
+    { title: '已配报警指标', dataIndex: 'config', key: 'config' },
+    { title: 'CPU消耗', dataIndex: 'cpu', key: 'cpu',
       render: function(text, record, index){
         var rate = Math.ceil(Math.random() * 100);
         return (
@@ -76,8 +76,9 @@ const ShowTable = React.createClass({
         );
       }
     },
-    { title: '操作1', dataIndex: 'test1', key: 'x', render: (text, record, index) => <a href="javascript:console.log(this);">测试 {text} {record.name} {index}</a>},
-    { title: '操作2', dataIndex: 'test3', key: 'y', 
+    { title: '更新时间', dataIndex: 'time', key: 'time' },
+    { title: '操作1', dataIndex: 'id', key: 'x', render: (text, record, index) => <a href="javascript:console.log(this);">测试 {text} {record.name} {index}</a>},
+    { title: '操作2', dataIndex: 'id', key: 'y', 
       render: function(text, record, index) {
         var confirm = function() {
           message.success('任务已被删除');
@@ -147,7 +148,7 @@ const ShowTable = React.createClass({
         </div>
         
         <Table columns={this.columns}
-          expandedRowRender={record => <div><p>{record.description}</p><ShowChart/></div>}
+          expandedRowRender={record => <div><p>{record.config}</p><ShowChart/></div>}
           dataSource={this.state.data}
           pagination={this.pagination()}
           className="table"
