@@ -9,6 +9,8 @@ import TableActions from "../../../state/actions/table.jsx";
 import ShowModal from '../ShowModal/core.jsx';
 import ShowChart from '../ShowChart/core.jsx';
 
+import ShowCircle from '../ShowCircle/core.jsx';
+
 const ShowTable = React.createClass({
   // 设置初始状态
 	getInitialState : function(){
@@ -23,6 +25,9 @@ const ShowTable = React.createClass({
   pagination : function(){
     return {
       total: this.state.data.length,
+      showTotal(total) {
+        return '共 ' + total + ' 条';
+      },
       pageSize: 15,
       pageSizeOptions: ['15', '20', '25', '30'],
       showSizeChanger: true,
@@ -63,12 +68,19 @@ const ShowTable = React.createClass({
     { title: '住址', dataIndex: 'address', key: 'address' },
     { title: '测试字段1', dataIndex: 'test1', key: 'test1' },
     { title: '测试字段2', dataIndex: 'test2', key: 'test2' },
-    { title: '测试字段3', dataIndex: 'test3', key: 'test3' },
+    { title: 'CPU消耗', dataIndex: 'test3', key: 'test3',
+      render: function(text, record, index){
+        var rate = Math.ceil(Math.random() * 100);
+        return (
+          <ShowCircle rate={rate}/>
+        );
+      }
+    },
     { title: '操作1', dataIndex: 'test1', key: 'x', render: (text, record, index) => <a href="javascript:console.log(this);">测试 {text} {record.name} {index}</a>},
     { title: '操作2', dataIndex: 'test3', key: 'y', 
       render: function(text, record, index) {
         var confirm = function() {
-          message.success('点击了确定');
+          message.success('任务已被删除');
           
           console.log(index);
           console.log(record);
@@ -78,7 +90,7 @@ const ShowTable = React.createClass({
         };
         
         function cancel() {
-          message.error('点击了取消');
+          message.error('取消了删除的操作');
         }
         
         return (
@@ -101,6 +113,7 @@ const ShowTable = React.createClass({
     this.setState({ loading: true });
     // 模拟 ajax 请求，完成后清空
     setTimeout(() => {
+      
       this.setState({
         selectedRowKeys: [],
         loading: false,
@@ -109,7 +122,10 @@ const ShowTable = React.createClass({
   },
   
   onSelectChange(selectedRowKeys) {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
+    // console.log('selectedRowKeys changed: ', selectedRowKeys);
+    var selectedRowKeysString = selectedRowKeys.join(', ');
+    message.success("你选择key为［" + selectedRowKeysString + "］的数据");
+    
     this.setState({ selectedRowKeys });
   },
   
@@ -122,11 +138,11 @@ const ShowTable = React.createClass({
     const hasSelected = selectedRowKeys.length > 0;
     return (
       <div>
-      
+        
         <div style={{ marginBottom: 16 }}>
           <Button type="primary" onClick={this.start}
             disabled={!hasSelected} loading={loading}
-          >操作</Button>
+          >多选操作</Button>
           <span style={{ marginLeft: 8 }}>{hasSelected ? `选择了 ${selectedRowKeys.length} 个对象` : ''}</span>
         </div>
         
@@ -135,7 +151,7 @@ const ShowTable = React.createClass({
           dataSource={this.state.data}
           pagination={this.pagination()}
           className="table"
-          size="middle"
+          size="small"
           rowSelection={rowSelection}
         />
         

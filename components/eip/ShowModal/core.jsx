@@ -27,7 +27,7 @@ const ShowModal = React.createClass({
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>显示对话框 {this.props.record.key}</Button>
+        <Button type="primary" size="small" onClick={this.showModal}>显示对话框 {this.props.record.key}</Button>
         <Modal title="第一个 Modal" visible={this.state.visible}
           onOk={this.handleOk} onCancel={this.handleCancel}
         >
