@@ -81,7 +81,7 @@ const ShowTable = React.createClass({
     { title: '操作2', dataIndex: 'id', key: 'y', 
       render: function(text, record, index) {
         var confirm = function() {
-          message.success('任务已被删除');
+          message.success('应用已被删除');
           
           console.log(index);
           console.log(record);
@@ -95,7 +95,7 @@ const ShowTable = React.createClass({
         }
         
         return (
-          <Popconfirm title="确定要删除这个任务吗？" placement="left" onConfirm={confirm} onCancel={cancel}>
+          <Popconfirm title="确定要删除这个应用吗？" placement="left" onConfirm={confirm} onCancel={cancel}>
             <a href="#">删除</a>
           </Popconfirm>
         );
