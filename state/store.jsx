@@ -7,6 +7,8 @@ import { createStore } from 'redux';
 
 var data = [];
 for(var i=1; i<=160; i++){
+  var id = "Application-" + i;
+  
   var name;
   switch (Math.ceil(Math.random()*10) - 1) {
     case 0:
@@ -70,6 +72,7 @@ for(var i=1; i<=160; i++){
   time = time.getFullYear() + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + seconds;
 
   data.push({
+    id: id,
     key: i,
     name: name,
     error: error,

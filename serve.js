@@ -13,7 +13,7 @@ app.use(render('static', {
 
 router.get('/',
   function *(next) {
-    yield this.render('templates/index', { title:'React + Antd DEMO', info: '点击下方链接' });
+    yield this.render('templates/index', { title:'React DEMO', info: '点击下方链接' });
   }
 );
 
