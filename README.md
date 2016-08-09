@@ -1,6 +1,7 @@
 ## 前端组件化开发案例
 ### 说明
 * 示例如何通过组件化的方式开发单页应用程序（后台）
+* 演示地址：[点击](http://rokeyzki-docker-app.daoapp.io)
 
 ### 服务端
 * 采用 Node.js 的 Web 框架：[Koa.js](http://koa.bootcss.com) 来提供程序的后端服务。
