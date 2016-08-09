@@ -1,0 +1,11 @@
+.event-normal {
+  color: #2db7f5;
+}
+
+.event-warning {
+  color: #fac450;
+}
+
+.event-error {
+  color: #f50;
+}
