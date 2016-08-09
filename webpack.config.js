@@ -12,6 +12,13 @@ module.exports = {
     path: './static',
     filename: 'js/[name].min.js'
   },
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-router': 'ReactRouter',
+    'echarts': true,
+    'g2': 'G2'
+  },
   module: {
     loaders: [
       {
@@ -50,7 +57,7 @@ module.exports = {
     new ExtractTextPlugin('css/[name].min.css'),
     new BannerPlugin('This file is created by Charles Lim'),
     new CommonsChunkPlugin('js/common.min.js'),
-    new UglifyJsPlugin({compress:{warnings: false}})
+    // new UglifyJsPlugin({compress:{warnings: false}})
   ],
   imagemin: {
     gifsicle: { interlaced: false },

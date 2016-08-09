@@ -1,7 +1,10 @@
 var app    = require('koa')(), // 框架内核
     staticServer = require('koa-static'), // 静态资源服务器
     router = require('koa-router')(), // 路由中间件
-    render = require('koa-views'); // 模板引擎选择器
+    render = require('koa-views'), // 模板引擎选择器
+    gzip = require('koa-gzip'); // gzip压缩
+
+app.use(gzip());
 
 app.use(staticServer('static'));
 
