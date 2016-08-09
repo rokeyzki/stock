@@ -50,7 +50,7 @@ module.exports = {
     new ExtractTextPlugin('css/[name].min.css'),
     new BannerPlugin('This file is created by Charles Lim'),
     new CommonsChunkPlugin('js/common.min.js'),
-    // new UglifyJsPlugin({compress:{warnings: false}})
+    new UglifyJsPlugin({compress:{warnings: false}})
   ],
   imagemin: {
     gifsicle: { interlaced: false },

@@ -19,6 +19,6 @@ router.get('/',
 
 app.use(router.routes());
 
-// app.listen(80);
-app.listen(8080);
+app.listen(80);
+// app.listen(8080);
 console.log('koa serve start');
